@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Article</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1 th:text="${article.id == 0 ? 'New Article' : 'Edit Article'}">Form</h1>
+    <a th:href="@{/admin/dashboard}">Back to Dashboard</a>
+</header>
+<main>
+    <form th:action="@{/admin/save}" th:object="${article}" method="post" class="article-card">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{publicationDate}" />
+
+        <div style="margin-bottom: 15px;">
+            <label>Title</label><br>
+            <input type="text" th:field="*{title}" required style="width: 100%; padding: 8px;"/>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Content (Markdown)</label><br>
+            <textarea th:field="*{content}" required rows="15"></textarea>
+        </div>
+
+        <button type="submit">Save Article</button>
+    </form>
+</main>
+</body>
+</html>

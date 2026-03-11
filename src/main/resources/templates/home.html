@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> </head>
+<body>
+<header>
+    <h1>Welcome to My Blog</h1>
+    <a th:href="@{/login}">Admin Login</a>
+</header>
+
+<main>
+    <div th:each="article : ${articles}" class="article-card">
+        <h2 th:text="${article.title}">Title</h2>
+        <small th:text="${article.publicationDate}">Date</small>
+        <p th:text="${#strings.abbreviate(article.content, 150)}">Summary...</p>
+        <a th:href="@{/article/{id}(id=${article.id})}">Read More</a>
+    </div>
+</main>
+</body>
+</html>

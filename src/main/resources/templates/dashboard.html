@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+       {
+       width: 100%;
+       border-collapse: collapse;
+       margin-top: 20px;
+       }
+        th, td {
+         padding: 10px;
+         border: 1px solid #ddd;
+         text-align: left;
+         }
+        .actions {
+         display: flex;
+         gap: 10px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+        <a th:href="@{/}">View Public Blog</a> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit">Logout</button>
+        </form>
+    </nav>
+</header>
+
+<main>
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/admin/add}">
+            <button>+ Add New Article</button>
+        </a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Publication Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.title}">Sample Title</td>
+            <td th:text="${#temporals.format(article.publicationDate, 'yyyy-MM-dd')}"></td>
+            <td class="actions">
+                <a th:href="@{/admin/edit/{id}(id=${article.id})}">
+                    <button>Edit</button>
+                </a>
+                <form th:action="@{/admin/delete/{id}(id=${article.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                    <button type="submit" >Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(articles)}">
+            <td colspan="3" style="text-align: center;">No articles found. Start writing!</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${article.title}">Article Title</title>
+</head>
+<body>
+<header>
+    <a th:href="@{/admin/dashboard}">&larr; Back to Home</a>
+</header>
+
+<article style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 th:text="${article.title}">Title</h1>
+    <p style="color: gray;">
+        Published on: <span th:text="${article.publicationDate}">Date</span>
+    </p>
+    <hr/>
+
+    <div th:utext="${htmlContent}">
+        Article content goes here...
+    </div>
+</article>
+</body>
+</html>
